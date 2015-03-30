@@ -4,3 +4,8 @@ D:\OneDrive\Git\XCLTableList\DynamicCon\Web\bin\Web.pdb
 D:\OneDrive\Git\XCLTableList\DynamicCon\Web\obj\Debug\Web.csprojResolveAssemblyReference.cache
 D:\OneDrive\Git\XCLTableList\DynamicCon\Web\obj\Debug\Web.dll
 D:\OneDrive\Git\XCLTableList\DynamicCon\Web\obj\Debug\Web.pdb
+D:\MyData\Git\GitHub\dynamicCon\DynamicCon\Web\bin\Web.dll
+D:\MyData\Git\GitHub\dynamicCon\DynamicCon\Web\bin\Web.pdb
+D:\MyData\Git\GitHub\dynamicCon\DynamicCon\Web\obj\Debug\Web.csprojResolveAssemblyReference.cache
+D:\MyData\Git\GitHub\dynamicCon\DynamicCon\Web\obj\Debug\Web.dll
+D:\MyData\Git\GitHub\dynamicCon\DynamicCon\Web\obj\Debug\Web.pdb
