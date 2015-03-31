@@ -57,6 +57,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Imgs\1.jpg" />
     <Content Include="Index.html" />
     <Content Include="Js\dynamicCon.js" />
     <Content Include="Js\jquery-1.11.1.min.js" />
