@@ -14,6 +14,8 @@
         maxCount: 50, //具体行的最大数量
         addBtn: ".addBtn", //添加按钮class
         delBtn: ".delBtn", //删除按钮class
+        indexClass: ".dynamicCon-Index",//显示序号的class，如：<span class="dynamicCon-Index"></span>
+        autoCreateIdIndexClass: ".dynamicCon-autoCreateIdIndex",//自动创建id索引的class，比如，元素A的id='txt'，则更新为A的id='txt1','txt2','txt3'...
         afterAddOrDel: function () { }//添加后或删除后事件
     };
 
@@ -37,6 +39,26 @@
                 //删除模板dom
                 $temp.parent().remove();
 
+                //更新行号
+                var updateLineNumber = function () {
+                    $.map($con.find(options.items), function (n, index) {
+                        var idx = index + 1;
+                        $(n).find(options.indexClass).text(idx);
+                        $(n).attr({ "dynamicCon-index": idx });
+                        $(n).find(options.autoCreateIdIndexClass).filter("[id]").each(function () {
+                            var oldId = $(this).attr("dynamicCon-oldId"), id = $(this).attr("id");
+                            if (oldId) {
+                                $(this).attr({ "id": oldId +""+ idx.toString() });
+                            }else{
+                                $(this).attr({ "dynamicCon-oldId": id });
+                                $(this).attr({ "id": id+""+ idx.toString() });
+                            }
+                        });
+                    });
+                };
+                updateLineNumber();
+
+
                 //添加行事件
                 $(document).on("click", $con.find(options.addBtn).selector, function () {
                     var $conThis = $($conAll[i]);
@@ -46,6 +68,7 @@
                     }
                     $(this).closest(options.items).after(tempHtml);
                     options.afterAddOrDel();
+                    updateLineNumber();
                 });
 
                 //删除行事件
@@ -57,6 +80,7 @@
                     }
                     $(this).closest(options.items).remove();
                     options.afterAddOrDel();
+                    updateLineNumber();
                 });
 
             });
