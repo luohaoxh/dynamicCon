@@ -44,7 +44,7 @@
 
                 //更新行号
                 var updateLineNumber = function () {
-                    $.map($con.find(options.items), function (n, index) {
+                    $con.find(options.items).each(function (index,n) {
                         var idx = index + 1;
                         $(n).find(options.indexClass).text(idx);
                         $(n).attr({ "dynamicCon-index": idx });
