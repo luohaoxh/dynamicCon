@@ -7,6 +7,13 @@
     <script src="Js/dynamicCon.js"></script>
 </head>
 <body>
+    <fieldset>
+        <legend>log:</legend>
+        <div>
+            <textarea id="txtMsg" style="width:100%;height:100px;"></textarea>
+        </div>
+    </fieldset>
+    
     <div class="dynamicCon">
         <table style="width:100%;">
             <tr class="temp">
@@ -39,7 +46,18 @@
     </div>
     <script type="text/javascript">
         $(function () {
-            $.DynamicCon();
+            var $msg = $("#txtMsg");
+            $.DynamicCon({
+                beforeAddOrDel: function (type) {$msg.val($msg.val()+"增加或删除行之前："+type+"\r\n"); return true; },
+                afterAddOrDel: function (type) {
+                    $msg.val($msg.val() + "增加或删除行之后：" + type + "\r\n");
+                    $msg.scrollTop($msg[0].scrollHeight);
+                },
+                overflowMsg: function (msg) {
+                    $msg.val($msg.val()+msg);
+                    return false;
+                }
+            });
         });
     </script>
 </body>

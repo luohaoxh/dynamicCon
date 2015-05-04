@@ -18,13 +18,16 @@
         delBtn: ".delBtn", //删除按钮class
         indexClass: ".dynamicCon-Index",//显示序号的class，如：<span class="dynamicCon-Index"></span>
         autoCreateIdIndexClass: ".dynamicCon-autoCreateIdIndex",//自动创建id索引的class，比如，元素A的id='txt'，则更新为A的id='txt1','txt2','txt3'...
-        beforeAddOrDel: function () { return true;},//添加后或删除前事件,其中的this为按钮对象，如果返回false，则阻止增加或删除行。
-        afterAddOrDel: function () { }//添加后或删除后事件,其中的this为按钮对象
+        beforeAddOrDel: function (handleType) { return true; },//handleType：操作类型  。添加后或删除前事件,其中的this为按钮对象，如果返回false，则阻止增加或删除行。
+        afterAddOrDel: function (handleType) { },//handleType：操作类型  。添加后或删除后事件,其中的this为按钮对象
+        overflowMsg: function (msg) { alert(msg); return false; }//msg：提示的文字。 操作最小行数或最大行数范围提示函数，,其中的this为按钮对象，如果返回false，则阻止增加或删除行。
     };
 
     $.extend({
         DynamicCon: function (options) {
+            var _this=this;
             options = $.extend({}, defaults, options || {});
+            _this.DynamicCon.Options = options;
             var $conAll = $(options.container);
             $conAll.each(function (i) {
                 //当前容器（适应多个调用该插件的情况）
@@ -64,35 +67,48 @@
 
                 //添加行事件 （先移除绑定的事件，主要是避免使用js模板等插件动态生成内容时，重复绑定问题。）
                 $(document).off("click", $con.find(options.addBtn).selector).on("click", $con.find(options.addBtn).selector, function () {
-                    if (!options.beforeAddOrDel.call(this)) return false;
+                    if (!options.beforeAddOrDel.call(this, _this.DynamicCon.HandleTypeEnum.Add)) return false;
 
                     var $conThis = $($conAll[i]);
                     if ($conThis.find(options.items).length == options.maxCount) {
-                        alert("最多只能添加" + options.maxCount + "行！");
-                        return false;
+                        if (!options.overflowMsg.call(this, "最多只能添加" + options.maxCount + "行！")) {
+                            return false;
+                        }
                     }
                     $(this).closest(options.items).after(tempHtml);
                     updateLineNumber();
 
-                    options.afterAddOrDel.call(this);
+                    options.afterAddOrDel.call(this, _this.DynamicCon.HandleTypeEnum.Add);
                 });
 
                 //删除行事件
                 $(document).off("click", $con.find(options.delBtn).selector).on("click", $con.find(options.delBtn).selector, function () {
-                    if (!options.beforeAddOrDel.call(this)) return false;
+                    if (!options.beforeAddOrDel.call(this, _this.DynamicCon.HandleTypeEnum.Del)) return false;
 
                     var $conThis = $($conAll[i]);
                     if ($conThis.find(options.items).length == options.minCount) {
-                        alert("最少要有" + options.minCount + "行！");
-                        return false;
+                        if (!options.overflowMsg.call(this, "最少要有" + options.minCount + "行！")) {
+                            return false;
+                        }
                     }
                     $(this).closest(options.items).remove();
                     updateLineNumber();
 
-                    options.afterAddOrDel.call(this);
+                    options.afterAddOrDel.call(this, _this.DynamicCon.HandleTypeEnum.Del);
                 });
 
             });
         }
     });
+
+    /**
+    * 操作类型
+    */
+    $.DynamicCon.HandleTypeEnum = {
+        //添加
+        Add: "Add",
+        //删除
+        Del:"Del"
+    };
+
 })(jQuery);
