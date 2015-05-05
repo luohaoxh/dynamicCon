@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
     <script src="Js/jquery-1.11.1.min.js"></script>
     <script src="Js/dynamicCon.js"></script>
@@ -10,51 +10,129 @@
     <fieldset>
         <legend>log:</legend>
         <div>
-            <textarea id="txtMsg" style="width:100%;height:100px;"></textarea>
+            <textarea id="txtMsg" style="width: 100%; height: 100px;"></textarea>
         </div>
     </fieldset>
-    
-    <div class="dynamicCon">
-        <table style="width:100%;">
-            <tr class="temp">
-                <td><span class="dynamicCon-Index"></span></td>
-                <td><input type="text" id="txtA" class="dynamicCon-autoCreateIdIndex"/></td>
-                <td><input type="text" id="txtB"  /></td>
-                <td><input type="text" id="txtC"  /></td>
-                <td><input type="text" id="txtD"  /></td>
-                <td><input type="text" id="txtE"  /></td>
-                <td><input type="text" id="txtF"  /></td>
-                <td>
-                    <a href="javascript:void(0);" class="addBtn">添加</a>
-                    <a href="javascript:void(0);" class="delBtn">删除</a>
-                </td>
-            </tr>
-            <tr class="items">
-                <td><span class="dynamicCon-Index"></span></td>
-                <td><input type="text" id="txtA" class="dynamicCon-autoCreateIdIndex"/></td>
-                <td><input type="text" id="txtB"  /></td>
-                <td><input type="text" id="txtC"  /></td>
-                <td><input type="text" id="txtD"  /></td>
-                <td><input type="text" id="txtE"  /></td>
-                <td><input type="text" id="txtF"  /></td>
-                <td>
-                    <a href="javascript:void(0);" class="addBtn">添加</a>
-                    <a href="javascript:void(0);" class="delBtn">删除</a>
-                </td>
-            </tr>
-        </table>
-    </div>
+
+    <fieldset>
+        <legend>dynamicCon:</legend>
+        <div class="dynamicCon">
+            <table style="width: 100%;">
+                <tr class="temp">
+                    <td><span class="dynamicCon-Index"></span></td>
+                    <td>
+                        <input type="text" id="txtA" class="dynamicCon-autoCreateIdIndex" /></td>
+                    <td>
+                        <input type="text"/></td>
+                    <td>
+                        <input type="text"/></td>
+                    <td>
+                        <input type="text"/></td>
+                    <td>
+                        <input type="text"/></td>
+                    <td>
+                        <input type="text"/></td>
+                    <td>
+                        <a href="javascript:void(0);" class="addBtn">添加</a>
+                        <a href="javascript:void(0);" class="delBtn">删除</a>
+                    </td>
+                </tr>
+                <tr class="items">
+                    <td><span class="dynamicCon-Index"></span></td>
+                    <td>
+                        <input type="text" id="txtA" class="dynamicCon-autoCreateIdIndex" /></td>
+                    <td>
+                        <input type="text"/></td>
+                    <td>
+                        <input type="text"/></td>
+                    <td>
+                        <input type="text"/></td>
+                    <td>
+                        <input type="text"/></td>
+                    <td>
+                        <input type="text"/></td>
+                    <td>
+                        <a href="javascript:void(0);" class="addBtn">添加</a>
+                        <a href="javascript:void(0);" class="delBtn">删除</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>dynamicCon2:</legend>
+        <div class="dynamicCon2">
+            <table style="width: 100%;">
+                <tr class="temp">
+                    <td><span class="dynamicCon-Index"></span></td>
+                    <td>
+                        <input type="text" id="txtB" class="dynamicCon-autoCreateIdIndex" /></td>
+                    <td>
+                        <input type="text"/></td>
+                    <td>
+                        <input type="text"/></td>
+                    <td>
+                        <input type="text"/></td>
+                    <td>
+                        <input type="text"/></td>
+                    <td>
+                        <input type="text"/></td>
+                    <td>
+                        <a href="javascript:void(0);" class="addBtn">添加</a>
+                        <a href="javascript:void(0);" class="delBtn">删除</a>
+                    </td>
+                </tr>
+                <tr class="items">
+                    <td><span class="dynamicCon-Index"></span></td>
+                    <td>
+                        <input type="text" id="txtB" class="dynamicCon-autoCreateIdIndex" /></td>
+                    <td>
+                        <input type="text"/></td>
+                    <td>
+                        <input type="text"/></td>
+                    <td>
+                        <input type="text"/></td>
+                    <td>
+                        <input type="text"/></td>
+                    <td>
+                        <input type="text"/></td>
+                    <td>
+                        <a href="javascript:void(0);" class="addBtn">添加</a>
+                        <a href="javascript:void(0);" class="delBtn">删除</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </fieldset>
+
     <script type="text/javascript">
         $(function () {
-            var $msg = $("#txtMsg");
+            var $msg = $("#txtMsg"), line = 1;
+            //dynamicCon
             $.DynamicCon({
-                beforeAddOrDel: function (type) {$msg.val($msg.val()+"增加或删除行之前："+type+"\r\n"); return true; },
+                beforeAddOrDel: function (type) { $msg.val($msg.val() + (line++)+"   增加或删除行之前：" + type + "\r\n"); return true; },
                 afterAddOrDel: function (type) {
-                    $msg.val($msg.val() + "增加或删除行之后：" + type + "\r\n");
+                    $msg.val($msg.val() + (line++) + "   增加或删除行之后：" + type + "\r\n");
                     $msg.scrollTop($msg[0].scrollHeight);
                 },
                 overflowMsg: function (msg) {
-                    $msg.val($msg.val()+msg);
+                    $msg.val($msg.val() + (line++) + "   " + msg + "\r\n");
+                    $msg.scrollTop($msg[0].scrollHeight);
+                    return false;
+                }
+            });
+            //dynamicCon2
+            $.DynamicCon({
+                container: ".dynamicCon2",
+                beforeAddOrDel: function (type) { $msg.val($msg.val() + (line++) + "   增加或删除行之前：" + type + "\r\n"); return true; },
+                afterAddOrDel: function (type) {
+                    $msg.val($msg.val() + (line++) + "   增加或删除行之后：" + type + "\r\n");
+                    $msg.scrollTop($msg[0].scrollHeight);
+                },
+                overflowMsg: function (msg) {
+                    $msg.val($msg.val() + (line++) + "   " + msg + "\r\n");
+                    $msg.scrollTop($msg[0].scrollHeight);
                     return false;
                 }
             });

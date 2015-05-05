@@ -5,7 +5,13 @@
 * 引用jquery（时代在进步，不再支持live绑定，请使用较新版本）
 * $.DynamicCon();
 * 当前版本：v1.3
-* 更新日期：2015-05-04
+* 更新日期：2015-05-05
+* 更新内容：
+* 1：添加options事件（添加或删除行之前的事件beforeAddOrDel）
+* 2：添加options事件（超出最少行或最大行警告overflowMsg）
+* 3：修复新版jquery中使用on绑定的bug
+* 4：添加$.DynamicCon.DynamicCon("");方法
+* 5：在options.container所代表的对象中，添加属性"dynamicCon-sumRows"，表示当前的总行数。
 */
 (function ($) {
     var defaults = {
@@ -23,11 +29,14 @@
         overflowMsg: function (msg) { alert(msg); return false; }//msg：提示的文字。 超过最小行数或最大行数范围提示函数，其中的this为按钮对象，如果返回false，则阻止增加或删除行。
     };
 
+    //存储各个容器的插件选项
+    var _optionsObject = {};
+
     $.extend({
         DynamicCon: function (options) {
             var _this=this;
             options = $.extend({}, defaults, options || {});
-            _this.DynamicCon.Options = options;
+            _optionsObject[options.container] = options;
             var $conAll = $(options.container);
             $conAll.each(function (i) {
                 //当前容器（适应多个调用该插件的情况）
@@ -47,7 +56,8 @@
 
                 //更新行号
                 var updateLineNumber = function () {
-                    $con.find(options.items).each(function (index,n) {
+                    var $conItems=$con.find(options.items);
+                    $conItems.each(function (index,n) {
                         var idx = index + 1;
                         $(n).find(options.indexClass).text(idx);
                         $(n).attr({ "dynamicCon-index": idx });
@@ -61,12 +71,13 @@
                             }
                         });
                     });
+                    $con.attr({ "dynamicCon-sumRows": $conItems.length });
                 };
                 updateLineNumber();
 
 
                 //添加行事件 （先移除绑定的事件，主要是避免使用js模板等插件动态生成内容时，重复绑定问题。）
-                $(document).off("click", $con.find(options.addBtn).selector).on("click", $con.find(options.addBtn).selector, function () {
+                $con.off("click", options.addBtn).on("click", options.addBtn, function () {
                     if (!options.beforeAddOrDel.call(this, _this.DynamicCon.HandleTypeEnum.Add)) return false;
 
                     var $conThis = $($conAll[i]);
@@ -82,7 +93,7 @@
                 });
 
                 //删除行事件
-                $(document).off("click", $con.find(options.delBtn).selector).on("click", $con.find(options.delBtn).selector, function () {
+                $con.off("click", options.delBtn).on("click", options.delBtn, function () {
                     if (!options.beforeAddOrDel.call(this, _this.DynamicCon.HandleTypeEnum.Del)) return false;
 
                     var $conThis = $($conAll[i]);
@@ -109,6 +120,13 @@
         Add: "Add",
         //删除
         Del:"Del"
+    };
+
+    /**
+    * 获取选项
+    */
+    $.DynamicCon.GetOptions = function (container) {
+        return _optionsObject[container || defaults.container] || null;
     };
 
 })(jQuery);
