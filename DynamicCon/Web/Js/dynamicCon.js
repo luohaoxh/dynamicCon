@@ -20,7 +20,7 @@
         autoCreateIdIndexClass: ".dynamicCon-autoCreateIdIndex",//自动创建id索引的class，比如，元素A的id='txt'，则更新为A的id='txt1','txt2','txt3'...
         beforeAddOrDel: function (handleType) { return true; },//handleType：操作类型  。添加后或删除前事件,其中的this为按钮对象，如果返回false，则阻止增加或删除行。
         afterAddOrDel: function (handleType) { },//handleType：操作类型  。添加后或删除后事件,其中的this为按钮对象
-        overflowMsg: function (msg) { alert(msg); return false; }//msg：提示的文字。 操作最小行数或最大行数范围提示函数，,其中的this为按钮对象，如果返回false，则阻止增加或删除行。
+        overflowMsg: function (msg) { alert(msg); return false; }//msg：提示的文字。 超过最小行数或最大行数范围提示函数，其中的this为按钮对象，如果返回false，则阻止增加或删除行。
     };
 
     $.extend({
