@@ -10,7 +10,7 @@
 * 1：添加options事件（添加或删除行之前的事件beforeAddOrDel）
 * 2：添加options事件（超出最少行或最大行警告overflowMsg）
 * 3：修复新版jquery中使用on绑定的bug
-* 4：添加$.DynamicCon.DynamicCon("");方法
+* 4：添加$.DynamicCon.GetOptions("");方法
 * 5：在options.container所代表的对象中，添加属性"dynamicCon-sumRows"，表示当前的总行数。
 */
 (function ($) {
